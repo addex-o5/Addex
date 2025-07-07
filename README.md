@@ -119,7 +119,7 @@ Adoni Cromwell
 *   **Email:** [cromwelladoni92@gmail.com](mailto:cromwelladoni92@gmail.com)
 *   **Phone:** [+2349023440983](tel:+2349023440983)
 *   **GitHub:** [github.com/addex-o5](https://github.com/addex-o5)
-*   **Portfolio Link (Live):** [your-live-website-url.com](https://your-live-website-url.com)
+*   **Portfolio Link (Live):** [addex.vercel.app/](https://addex.vercel.app/)
 
 ---
 
