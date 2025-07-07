@@ -1,42 +1,55 @@
-/* General Styles */
+/* General Styles - Dark Theme */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
+    background-color: #1a1a1a; /* Dark background */
+    color: #e0e0e0; /* Light grey text */
+    line-height: 1.7; /* Increased for better readability on dark bg */
 }
 
 h1, h2, h3 {
-    color: #3498db; /* Primary color */
+    color: #5dade2; /* Brighter, friendly blue for headings */
+}
+
+h2 { /* Section headings a bit more prominent */
+    font-size: 2.8em;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
 }
 
 a {
-    color: #f1c40f; /* Secondary color */
+    color: #f1c40f; /* Vibrant orange for links */
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: #f39c12; /* Slightly darker orange on hover */
+    text-decoration: none; /* Keep underline off for cleaner look */
 }
 
 section {
-    padding: 60px 20px;
+    padding: 70px 25px; /* Slightly more padding */
     text-align: center;
+    border-bottom: 1px solid #2c3e50; /* Subtle separator */
+}
+section:last-of-type {
+    border-bottom: none;
 }
 
-.container {
-    max-width: 1100px;
+
+.container { /* Not heavily used with full-width sections, but good to have */
+    max-width: 1200px;
     margin: auto;
     overflow: hidden;
     padding: 0 20px;
 }
 
-/* Header & Hero Section */
+/* Header & Hero Section - Dark Theme */
 #hero {
-    background-color: #3498db; /* Primary color for background */
-    color: #fff;
+    background-color: #2c3e50; /* Dark blue-grey */
+    color: #f5f5f5; /* Off-white text */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -44,33 +57,40 @@ section {
     align-items: center;
     text-align: center;
     position: relative;
-    overflow: hidden; /* For dynamic background */
+    overflow: hidden;
+    border-bottom: none; /* No border for hero */
 }
 
 #hero .hero-content h1 {
-    font-size: 3.5em;
-    margin-bottom: 0.5em;
-    color: #fff;
+    font-size: 4em; /* Larger */
+    margin-bottom: 0.4em;
+    color: #fff; /* Pure white for main heading */
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 #hero .hero-content p {
-    font-size: 1.5em;
-    margin-bottom: 1.5em;
+    font-size: 1.6em; /* Slightly larger */
+    margin-bottom: 1.8em;
+    color: #bdc3c7; /* Light grey for tagline */
 }
 
 .cta-button {
     display: inline-block;
-    background-color: #f1c40f; /* Secondary color */
-    color: #333;
-    padding: 12px 25px;
-    font-size: 1.2em;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #f1c40f; /* Vibrant orange */
+    color: #1a1a1a; /* Dark text on orange button */
+    padding: 15px 35px; /* Larger padding */
+    font-size: 1.3em;
+    font-weight: bold;
+    border-radius: 8px; /* Slightly more rounded */
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(241, 196, 15, 0.2); /* Subtle glow */
 }
 
 .cta-button:hover {
-    background-color: #e0b30e; /* Darker shade of secondary */
-    transform: translateY(-3px);
+    background-color: #f39c12; /* Darker orange */
+    transform: translateY(-5px) scale(1.05); /* More noticeable hover effect */
+    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.3);
     text-decoration: none;
 }
 
@@ -80,20 +100,18 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    /* Placeholder for JS animation - e.g., particles.js or custom */
-    background: linear-gradient(45deg, rgba(52, 152, 219, 0.8), rgba(41, 128, 185, 0.8));
+    z-index: 0; /* Behind content */
+    /* background: linear-gradient(45deg, rgba(44, 62, 80, 0.9), rgba(30, 40, 50, 0.95)); Darker gradient */
 }
 
 
-/* About Section */
+/* About Section - Dark Theme */
 #about {
-    background-color: #fff;
+    background-color: #212121; /* Slightly lighter dark for variation */
 }
 
 #about h2 {
-    margin-bottom: 40px;
-    font-size: 2.5em;
+    color: #5dade2;
 }
 
 .about-content {
@@ -108,18 +126,32 @@ section {
 
 .about-text {
     flex-basis: 60%;
-    padding-right: 20px;
+    padding-right: 30px; /* More spacing */
+    font-size: 1.1em; /* Slightly larger base text */
 }
 
 .about-text h3 {
-    margin-top: 20px;
-    color: #3498db;
+    margin-top: 25px;
+    color: #5dade2; /* Consistent heading blue */
+    font-size: 1.8em;
 }
 
 .about-text ul {
-    list-style: disc;
-    padding-left: 20px;
+    list-style: none; /* Remove default bullets */
+    padding-left: 0;
 }
+.about-text ul li {
+    background-color: #2c3e50; /* Dark item background */
+    margin-bottom: 10px;
+    padding: 12px 18px;
+    border-radius: 5px;
+    color: #ecf0f1; /* Light text for list items */
+    transition: background-color 0.3s ease;
+}
+.about-text ul li:hover {
+    background-color: #34495e; /* Slightly lighter on hover */
+}
+
 
 .about-image {
     flex-basis: 35%;
@@ -128,252 +160,296 @@ section {
 .about-image img {
     max-width: 100%;
     border-radius: 50%;
-    border: 5px solid #3498db;
+    border: 7px solid #5dade2; /* Blue border for profile image */
+    box-shadow: 0 0 25px rgba(93, 173, 226, 0.3); /* Subtle glow for image */
 }
 
-/* Services Section */
+/* Services Section - Dark Theme */
 #services {
-    background-color: #f9f9f9;
+    background-color: #1a1a1a; /* Main dark background */
 }
 
 #services h2 {
-    margin-bottom: 50px;
-    font-size: 2.5em;
+    color: #5dade2;
 }
 
 .services-container {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 35px; /* Increased gap */
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .service-item {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    flex-basis: calc(25% - 30px); /* Adjust for 4 items with gap */
-    min-width: 250px; /* Minimum width for smaller screens */
+    background-color: #2c3e50; /* Dark blue-grey cards */
+    padding: 35px; /* More padding */
+    border-radius: 12px; /* More rounded */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Deeper shadow */
+    flex-basis: calc(25% - 35px);
+    min-width: 260px;
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    border: 1px solid #34495e; /* Subtle border */
 }
 
 .service-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transform: translateY(-12px); /* More lift */
+    box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    background-color: #34495e; /* Lighter shade on hover */
 }
 
 .service-icon {
-    width: 80px;
-    height: 80px;
+    width: 90px; /* Larger icons */
+    height: 90px;
     border-radius: 50%;
-    background-color: #3498db; /* Primary color */
-    color: #fff;
-    font-size: 2em;
+    background-color: #5dade2; /* Blue for icons */
+    color: #1a1a1a; /* Dark symbol on light icon bg */
+    font-size: 2.5em;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 20px auto;
-    /* Floating effect will be more prominent with JS, but add a subtle one here */
+    margin: 0 auto 25px auto;
     animation: float 6s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(93, 173, 226, 0.4); /* Glow for icons */
 }
 
-/* Example IDs for specific icon styling if needed, or use classes */
-#icon-web-dev {}
-#icon-bug-fixes { background-color: #f1c40f; color: #333; animation-delay: 1.5s;}
+#icon-bug-fixes { background-color: #f1c40f; color: #1a1a1a; animation-delay: 1.5s; box-shadow: 0 0 15px rgba(241, 196, 15, 0.4); }
 #icon-frontend { animation-delay: 3s; }
-#icon-backend { background-color: #2ecc71; animation-delay: 4.5s; } /* Example of another color */
+#icon-backend { background-color: #2ecc71; color: #1a1a1a; animation-delay: 4.5s;  box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
 
 
 .service-item h3 {
-    margin-bottom: 10px;
-    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-size: 1.7em; /* Larger service titles */
+    color: #ecf0f1; /* Light text for service titles */
+}
+.service-item p {
+    color: #bdc3c7; /* Lighter grey for service descriptions */
 }
 
-/* Floating Animation */
+/* Floating Animation - remains the same */
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
+    50% { transform: translateY(-18px); } /* Increased float height */
     100% { transform: translateY(0px); }
 }
 
-/* Projects Section */
+/* Projects Section - Dark Theme */
 #projects {
-    background-color: #fff;
+    background-color: #212121; /* Slightly lighter dark */
 }
 
 #projects h2 {
-    margin-bottom: 50px;
-    font-size: 2.5em;
+    color: #5dade2;
 }
 
 .projects-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 30px;
+    gap: 35px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .project-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    background-color: #2c3e50; /* Dark card background */
+    border: 1px solid #34495e; /* Subtle border */
+    border-radius: 10px; /* More rounded */
     overflow: hidden;
-    flex-basis: calc(33.333% - 30px); /* Adjust for 3 items with gap */
-    min-width: 300px; /* Minimum width for smaller screens */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    flex-basis: calc(33.333% - 35px);
+    min-width: 310px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.25);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
     transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
 }
 
 .project-card img {
     width: 100%;
-    height: 200px;
+    height: 220px; /* Slightly taller image area */
     object-fit: cover;
     display: block;
+    opacity: 0.85; /* Slight opacity for better text overlay if any */
+    transition: opacity 0.3s ease;
+}
+.project-card:hover img {
+    opacity: 1;
 }
 
 .project-card h3 {
-    font-size: 1.6em;
-    margin: 15px;
-    color: #3498db;
+    font-size: 1.8em; /* Larger project titles */
+    margin: 20px;
+    color: #5dade2; /* Blue for project titles */
 }
 
 .project-card p {
-    font-size: 1em;
-    padding: 0 15px 15px 15px;
-    color: #555;
+    font-size: 1.05em;
+    padding: 0 20px 20px 20px;
+    color: #bdc3c7; /* Light grey for project descriptions */
 }
 
 .project-links {
-    padding: 15px;
-    background-color: #eee;
+    padding: 20px;
+    background-color: #34495e; /* Darker footer for card links */
     text-align: center;
 }
 
 .project-links a {
-    margin: 0 10px;
-    padding: 8px 15px;
-    background-color: #3498db;
+    margin: 0 12px;
+    padding: 10px 20px; /* Larger link buttons */
+    background-color: #5dade2; /* Blue for links */
     color: #fff;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
 }
 
 .project-links a:hover {
-    background-color: #2980b9; /* Darker primary */
+    background-color: #4a90e2; /* Brighter blue on hover */
     text-decoration: none;
+    transform: scale(1.05);
 }
 
-.project-links a:last-child {
-    background-color: #f1c40f; /* Secondary color for GitHub or alternative link */
-    color: #333;
+.project-links a:last-child { /* Assuming GitHub link */
+    background-color: #f1c40f; /* Orange for GitHub link */
+    color: #1a1a1a; /* Dark text on orange */
 }
 
 .project-links a:last-child:hover {
-    background-color: #e0b30e;
+    background-color: #f39c12; /* Darker orange on hover */
 }
 
 
-/* Contact Section */
+/* Contact Section - Dark Theme */
 #contact {
-    background-color: #f9f9f9;
+    background-color: #1a1a1a; /* Main dark background */
 }
 
 #contact h2 {
-    margin-bottom: 40px;
-    font-size: 2.5em;
+    color: #5dade2;
 }
 
 #contact-form {
-    max-width: 600px;
-    margin: 0 auto 30px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 650px; /* Slightly wider form */
+    margin: 0 auto 40px auto;
+    padding: 30px; /* More padding */
+    background-color: #2c3e50; /* Dark form background */
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     text-align: left;
+    border: 1px solid #34495e;
 }
 
 #contact-form label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px; /* More space below label */
     font-weight: bold;
-    color: #3498db;
+    color: #5dade2; /* Blue for labels */
+    font-size: 1.1em;
 }
 
 #contact-form input[type="text"],
 #contact-form input[type="email"],
 #contact-form textarea {
-    width: calc(100% - 22px); /* Account for padding and border */
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    width: calc(100% - 24px); /* Account for padding and border */
+    padding: 12px;
+    margin-bottom: 25px; /* More space below inputs */
+    border: 1px solid #34495e; /* Darker border */
+    border-radius: 6px;
     font-size: 1em;
+    background-color: #34495e; /* Dark input background */
+    color: #ecf0f1; /* Light text in inputs */
 }
+#contact-form input[type="text"]:focus,
+#contact-form input[type="email"]:focus,
+#contact-form textarea:focus {
+    border-color: #5dade2; /* Blue border on focus */
+    box-shadow: 0 0 8px rgba(93, 173, 226, 0.3);
+    outline: none;
+}
+
 
 #contact-form textarea {
     resize: vertical;
-    min-height: 100px;
+    min-height: 120px;
 }
 
 #contact-form button[type="submit"] {
     display: block;
     width: 100%;
-    padding: 12px;
-    background-color: #3498db; /* Primary color */
-    color: white;
+    padding: 15px; /* Larger button */
+    background-color: #5dade2; /* Blue submit button */
+    color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #contact-form button[type="submit"]:hover {
-    background-color: #2980b9; /* Darker primary */
+    background-color: #4a90e2; /* Brighter blue on hover */
+    transform: translateY(-3px);
 }
 
-.social-links {
+.contact-details {
     margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+}
+.contact-details p {
+    margin: 8px 0;
+    color: #bdc3c7;
+}
+.contact-details a {
+    color: #f1c40f; /* Orange for contact links */
+}
+.contact-details a:hover {
+    color: #f39c12;
+}
+
+
+.social-links {
+    margin-top: 20px; /* Reduced margin as contact-details is above */
 }
 
 .social-links a {
-    margin: 0 15px;
-    font-size: 1.1em;
-    color: #3498db; /* Primary color for links */
-    transition: color 0.3s ease;
+    margin: 0 18px; /* More spacing for social icons */
+    font-size: 1.3em; /* Larger social icons */
+    color: #5dade2;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .social-links a:hover {
-    color: #f1c40f; /* Secondary color on hover */
+    color: #f1c40f;
     text-decoration: none;
+    transform: scale(1.1);
 }
 
-/* Footer */
+/* Footer - Dark Theme */
 footer {
-    background-color: #333;
-    color: #f9f9f9;
+    background-color: #0d0d0d; /* Even darker footer */
+    color: #bdc3c7; /* Light grey text */
     text-align: center;
-    padding: 20px;
+    padding: 25px; /* More padding */
+    border-top: 1px solid #2c3e50;
 }
 
 footer p {
     margin: 0;
+    font-size: 0.95em;
 }
 
-/* Responsive Design */
+/* Responsive Design - Adjustments for Dark Theme if needed */
+/* Most existing media queries should work fine, but review contrasts and sizes */
 @media (max-width: 992px) {
     .about-content {
         flex-direction: column;
@@ -381,72 +457,73 @@ footer p {
     }
     .about-text {
         padding-right: 0;
-        margin-bottom: 30px;
+        margin-bottom: 40px; /* More space for image */
     }
     .about-image img {
         margin: 0 auto;
     }
 
     .service-item {
-        flex-basis: calc(50% - 30px); /* 2 items per row */
+        flex-basis: calc(50% - 35px);
     }
 
     .project-card {
-        flex-basis: calc(50% - 30px); /* 2 items per row */
+        flex-basis: calc(50% - 35px);
     }
 }
 
 @media (max-width: 768px) {
     #hero .hero-content h1 {
-        font-size: 2.8em;
+        font-size: 3em; /* Adjusted for dark theme readability */
     }
     #hero .hero-content p {
-        font-size: 1.2em;
+        font-size: 1.3em;
     }
     .cta-button {
-        font-size: 1em;
-        padding: 10px 20px;
+        font-size: 1.1em;
+        padding: 12px 28px;
+    }
+
+    h2 { /* Reduce section heading size on smaller screens */
+        font-size: 2.3em;
     }
 
     section {
-        padding: 40px 15px;
+        padding: 50px 20px;
     }
 
-    h2 {
-        font-size: 2em;
+
+    .service-item, .project-card {
+        flex-basis: 100%; /* Stack items */
+        min-width: unset; /* Allow full width */
     }
 
-    .service-item {
-        flex-basis: 100%; /* 1 item per row */
-    }
-
-    .project-card {
-        flex-basis: 100%; /* 1 item per row */
-    }
 
     #contact-form input[type="text"],
     #contact-form input[type="email"],
     #contact-form textarea {
-        width: calc(100% - 20px);
+        width: calc(100% - 22px); /* Re-adjust for padding */
     }
 }
 
 @media (max-width: 480px) {
     #hero .hero-content h1 {
-        font-size: 2.2em;
+        font-size: 2.5em;
     }
     #hero .hero-content p {
-        font-size: 1em;
+        font-size: 1.1em;
     }
-
-    .about-text ul {
-        text-align: left;
-        padding-left: 40px; /* Indent list items a bit more */
+    .about-text ul li {
+        padding: 10px 15px; /* Slightly smaller padding for list items */
     }
 
     .social-links a {
-        display: block;
-        margin: 10px 0;
+        display: inline-block; /* Keep them inline if space allows */
+        margin: 10px 12px; /* Adjust spacing */
+        font-size: 1.2em;
+    }
+    .contact-details {
+        font-size: 1em;
     }
 }
 
@@ -455,27 +532,27 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Bubble animation for Hero section */
+/* Bubble animation for Hero section - Dark Theme */
 .dynamic-background .bubble {
     position: absolute;
-    bottom: -50px; /* Start from below the screen */
-    background-color: rgba(241, 196, 15, 0.2); /* Secondary color with alpha, less obtrusive */
+    bottom: -60px; /* Start further down */
+    background-color: rgba(241, 196, 15, 0.12); /* Orange bubbles, more subtle on dark */
     border-radius: 50%;
     animation: rise linear infinite;
-    pointer-events: none; /* So they don't interfere with clicks */
-    z-index: 0; /* Behind hero content */
+    pointer-events: none;
+    z-index: 0;
 }
 
 @keyframes rise {
     0% {
         transform: translateY(0) scale(1);
-        opacity: 0.5; /* Start slightly transparent */
+        opacity: 0.6;
     }
     50% {
-        opacity: 0.2; /* Fade more during rise */
+        opacity: 0.15;
     }
     100% {
-        transform: translateY(-120vh) scale(0.3); /* Rise well above the hero section, shrink */
-        opacity: 0; /* Fade out completely */
+        transform: translateY(-130vh) scale(0.2); /* Rise higher, shrink more */
+        opacity: 0;
     }
 }
