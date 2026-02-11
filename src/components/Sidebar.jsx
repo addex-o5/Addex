@@ -1,11 +1,13 @@
 import React from 'react';
-import { Layout, Image, Palmtree, Ghost, Sparkles, Menu, X } from 'lucide-react';
+import { Layout, Image, Palmtree, Ghost, Sparkles, Sword, Play, Menu, X } from 'lucide-react';
 import { cn } from '../utils/cn';
 
 const categories = [
   { name: 'All', icon: Layout },
   { name: 'Wallpapers', icon: Sparkles },
   { name: 'PFPs', icon: Image },
+  { name: 'Anime', icon: Play },
+  { name: 'Fiction', icon: Sword },
   { name: 'Nature', icon: Palmtree },
   { name: 'Abstract', icon: Ghost },
 ];
