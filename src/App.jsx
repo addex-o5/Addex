@@ -2,28 +2,42 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import MasonryGrid from './components/MasonryGrid';
+import ImageModal from './components/ImageModal';
 import { SkeletonGrid } from './components/Skeleton';
 import { fetchImages } from './services/imageService';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cn } from './utils/cn';
 
 function App() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState('Newest');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const loadImages = async () => {
       setLoading(true);
       const data = await fetchImages(searchQuery, activeCategory);
-      setImages(data);
+
+      // Apply local sorting/filtering based on activeFilter
+      let sortedData = [...data];
+      if (activeFilter === 'Popular') {
+        sortedData.sort(() => 0.5 - Math.random()); // Simple mock: random shuffle but could be by views
+      } else if (activeFilter === 'Random') {
+        sortedData.sort(() => 0.5 - Math.random());
+      }
+      // 'Newest' is the default from API usually
+
+      setImages(sortedData);
       setLoading(false);
     };
 
     const timer = setTimeout(loadImages, searchQuery ? 500 : 0);
     return () => clearTimeout(timer);
-  }, [searchQuery, activeCategory]);
+  }, [searchQuery, activeCategory, activeFilter]);
 
   return (
     <div className="flex min-h-screen bg-aurora-dark text-white font-sans selection:bg-aurora-purple/30 selection:text-aurora-electric">
@@ -41,6 +55,8 @@ function App() {
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           setIsSidebarOpen={setIsSidebarOpen}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
         />
 
         <div className="flex-1 px-6 pb-12 max-w-7xl mx-auto w-full">
@@ -73,8 +89,18 @@ function App() {
             </div>
 
             <div className="flex gap-4">
-              <button className="text-sm font-medium text-white/40 hover:text-white transition-colors">Recent</button>
-              <button className="text-sm font-medium text-white/40 hover:text-white transition-colors">Popular</button>
+              <button
+                onClick={() => setActiveFilter('Newest')}
+                className={cn("text-sm font-medium transition-colors", activeFilter === 'Newest' ? "text-aurora-electric" : "text-white/40 hover:text-white")}
+              >
+                Recent
+              </button>
+              <button
+                onClick={() => setActiveFilter('Popular')}
+                className={cn("text-sm font-medium transition-colors", activeFilter === 'Popular' ? "text-aurora-electric" : "text-white/40 hover:text-white")}
+              >
+                Popular
+              </button>
             </div>
           </div>
 
@@ -82,9 +108,19 @@ function App() {
           {loading ? (
             <SkeletonGrid />
           ) : (
-            <MasonryGrid images={images} />
+            <MasonryGrid images={images} onImageClick={setSelectedImage} />
           )}
         </div>
+
+        {/* Modal Overlay */}
+        <AnimatePresence>
+          {selectedImage && (
+            <ImageModal
+              image={selectedImage}
+              onClose={() => setSelectedImage(null)}
+            />
+          )}
+        </AnimatePresence>
 
         {/* Footer */}
         <footer className="mt-auto py-10 border-t border-white/5 text-center">

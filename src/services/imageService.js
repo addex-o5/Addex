@@ -128,16 +128,14 @@ const fetchPexels = async (query) => {
 
 const fetchNekos = async () => {
   try {
-    const targetUrl = 'https://api.nekosapi.com/v4/images/random?limit=20&rating=safe';
+    const targetUrl = 'https://api.nekosapi.com/v3/images/random?limit=20&rating=safe';
     const response = await axios.get(`${PROXY_URL}${encodeURIComponent(targetUrl)}`, { timeout: 8000 });
 
     if (!response.data || !response.data.contents) return [];
     const data = JSON.parse(response.data.contents);
-
-    // Some versions of the API return an array directly, others return an object with items
     const items = data.items || data;
 
-    return items.map(img => ({
+    return (Array.isArray(items) ? items : []).map(img => ({
       id: `nk-${img.id}`,
       url: img.url,
       thumbnail: img.url,
@@ -147,7 +145,54 @@ const fetchNekos = async () => {
       downloadUrl: img.url
     }));
   } catch (error) {
-    console.error('Nekos fetch failed:', error);
+    return [];
+  }
+};
+
+const fetchWaifuPics = async () => {
+  try {
+    // We'll get multiple types to expand variety
+    const endpoints = ['waifu', 'neko', 'shinobu', 'megumin'];
+    const results = await Promise.all(endpoints.map(type =>
+      axios.get(`${PROXY_URL}${encodeURIComponent(`https://api.waifu.pics/sfw/${type}`)}`, { timeout: 5000 })
+    ));
+
+    return results.map((res, index) => {
+      const data = JSON.parse(res.data.contents);
+      return {
+        id: `wp-${index}-${Math.random().toString(36).substr(2, 9)}`,
+        url: data.url,
+        thumbnail: data.url,
+        title: `Anime ${endpoints[index]}`,
+        author: 'Waifu.pics',
+        category: 'Anime',
+        downloadUrl: data.url
+      };
+    });
+  } catch (error) {
+    return [];
+  }
+};
+
+const fetchPicsum = async () => {
+  try {
+    const page = Math.floor(Math.random() * 20) + 1;
+    const targetUrl = `https://picsum.photos/v2/list?page=${page}&limit=20`;
+    const response = await axios.get(`${PROXY_URL}${encodeURIComponent(targetUrl)}`, { timeout: 8000 });
+
+    const data = JSON.parse(response.data.contents);
+    if (!Array.isArray(data)) return [];
+
+    return data.map(img => ({
+      id: `ps-${img.id}`,
+      url: `https://picsum.photos/id/${img.id}/2000/1200`,
+      thumbnail: `https://picsum.photos/id/${img.id}/600/400`,
+      title: 'Artistic Landscape',
+      author: img.author,
+      category: 'Wallpapers',
+      downloadUrl: `https://picsum.photos/id/${img.id}/4000/3000`
+    }));
+  } catch (error) {
     return [];
   }
 };
@@ -166,12 +211,18 @@ export const fetchImages = async (query = '', category = 'All') => {
 
     // Route to APIs
     const apis = [fetchWallhaven(searchQuery, category)];
-    if (category === 'Anime') apis.push(fetchNekos());
+    if (category === 'Anime') {
+      apis.push(fetchNekos());
+      apis.push(fetchWaifuPics());
+    }
+    if (category === 'All' || category === 'Wallpapers' || category === 'Nature') {
+      apis.push(fetchPicsum());
+    }
     if (UNSPLASH_ACCESS_KEY) apis.push(fetchUnsplash(searchQuery));
     if (PEXELS_API_KEY) apis.push(fetchPexels(searchQuery));
 
     const allResults = await Promise.all(apis);
-    results = allResults.flat();
+    results = allResults.flat().sort(() => Math.random() - 0.5);
 
     // Specific category adjustments if needed
     if (category === 'PFPs' && results.length > 0) {
@@ -195,15 +246,29 @@ export const fetchImages = async (query = '', category = 'All') => {
 
 export const downloadImage = async (url, filename) => {
   try {
+    // For downloads, we use the RAW proxy to get the actual file data
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+
+    const response = await axios.get(proxyUrl, {
+      responseType: 'blob',
+      timeout: 15000
+    });
+
+    const blob = new Blob([response.data], { type: response.headers['content-type'] || 'image/jpeg' });
+    const blobUrl = window.URL.createObjectURL(blob);
+
     const link = document.createElement('a');
-    link.href = url;
-    link.download = filename || 'aurarify-image.jpg';
-    link.target = '_blank';
+    link.href = blobUrl;
+    link.download = filename || 'aurarify-wallpaper.jpg';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Clean up the URL object
+    setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
   } catch (error) {
     console.error('Download failed:', error);
+    // Fallback: Just try to open it in a new tab if blob download fails
     window.open(url, '_blank');
   }
 };

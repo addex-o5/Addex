@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { Search, SlidersHorizontal, Menu, Check } from 'lucide-react';
 import { cn } from '../utils/cn';
 
-const Navbar = ({ searchQuery, setSearchQuery, setIsSidebarOpen }) => {
+const Navbar = ({ searchQuery, setSearchQuery, setIsSidebarOpen, activeFilter, setActiveFilter }) => {
   const [showFilters, setShowFilters] = useState(false);
-  const [activeFilter, setActiveFilter] = useState('Newest');
 
-  const filters = ['Newest', 'Popular', 'Most Downloaded'];
+  const filters = ['Newest', 'Popular', 'Random'];
 
   return (
     <header className="sticky top-0 z-30 w-full px-6 py-4 lg:py-6">

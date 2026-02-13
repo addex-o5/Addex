@@ -3,7 +3,7 @@ import Masonry from 'react-masonry-css';
 import ImageCard from './ImageCard';
 import { AnimatePresence } from 'framer-motion';
 
-const MasonryGrid = ({ images }) => {
+const MasonryGrid = ({ images, onImageClick }) => {
   const breakpointColumnsObj = {
     default: 4,
     1536: 4,
@@ -21,7 +21,11 @@ const MasonryGrid = ({ images }) => {
       >
         <AnimatePresence mode='popLayout'>
           {images.map((image) => (
-            <ImageCard key={image.id} image={image} />
+            <ImageCard
+              key={image.id}
+              image={image}
+              onClick={onImageClick}
+            />
           ))}
         </AnimatePresence>
       </Masonry>
