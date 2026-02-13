@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-aurora-dark text-white min-h-screen overflow-x-hidden;
+    background-image: radial-gradient(at 0% 0%, rgba(123, 47, 247, 0.15) 0, transparent 50%),
+                      radial-gradient(at 100% 0%, rgba(47, 128, 247, 0.15) 0, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-aurora-dark;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-aurora-gray rounded-full hover:bg-aurora-purple transition-colors;
+  }
+}
+
+@layer components {
+  .glass-morphism {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-xl;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 hover:border-aurora-purple/50 transition-all duration-300;
+  }
+
+  .aurora-text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-aurora-purple via-aurora-blue to-aurora-electric;
+  }
+
+  .gradient-button {
+    @apply relative overflow-hidden bg-aurora-purple px-6 py-2 rounded-full font-medium transition-all duration-300 hover:shadow-[0_0_20px_rgba(123,47,247,0.5)] active:scale-95;
+  }
+
+  .gradient-button::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-aurora-purple to-aurora-blue opacity-0 transition-opacity duration-300;
+  }
+
+  .gradient-button:hover::before {
+    @apply opacity-100;
+  }
+
+  .gradient-button span {
+    @apply relative z-10;
+  }
+}
+
+/* Masonry grid transition */
+.my-masonry-grid {
+  display: flex;
+  margin-left: -20px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 20px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.my-masonry-grid_column > div {
+  margin-bottom: 20px;
+}
